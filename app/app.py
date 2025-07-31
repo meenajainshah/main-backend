@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # Update these URLs before deploying
 MEMORY_AGENT_BASE_URL = "https://chromamemory.onrender.com"
-#ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/12831161/u2j3pbl/"
+ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/12831161/u2j3pbl/"
 
 # Models
 
