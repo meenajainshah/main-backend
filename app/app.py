@@ -9,7 +9,7 @@ async def root():
     return {"message": "Main backend is running"}
 
 MEMORY_AGENT_BASE_URL = "https://chromamemory.onrender.com/"  # Update this
-ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com//hooks/catch/12831161/2vjgzlr/"  # Update this
+ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/12831161/u2j3pbl/"  # Update this
 
 # Pydantic model for Zapier action payload
 class ZapierPayload(BaseModel):
