@@ -15,17 +15,26 @@ ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/12831161/u2j3pbl/"  #
 class ZapierPayload(BaseModel):
     user_input: str
     entity_id: str
-    additional_info: Optional[Dict] = None
+    task_type: str
+    name: Optional[str]
+    email: Optional[str]
+    mobile: Optional[str]
+    scope: Optional[str]
+    skills: Optional[str]
+    tools: Optional[str]
+    suggestedroadmap: Optional[str]
+    budget: Optional[str]
 
 @app.post("/zapier-action")
 async def zapier_action(payload: ZapierPayload):
-    try:
-        async with httpx.AsyncClient() as client:
-            resp = await client.post(ZAPIER_WEBHOOK_URL, json=payload.dict())
-            resp.raise_for_status()
-            return {"status": "Zapier webhook triggered", "response": resp.json()}
-    except httpx.HTTPError as e:
-        raise HTTPException(status_code=502, detail=f"Error calling Zapier webhook: {str(e)}")
+    data = payload.dict()
+    # Flatten in case additional_info used earlier (optional)
+    # Send flattened data directly to Zapier webhook
+    async with httpx.AsyncClient() as client:
+        resp = await client.post("https://hooks.zapier.com/hooks/catch/your-hook-id", json=data)
+        resp.raise_for_status()
+        return {"status": "Zapier webhook triggered", "response": resp.json()}
+
 
 # Pydantic model for Memory store payload
 class MemoryStorePayload(BaseModel):
