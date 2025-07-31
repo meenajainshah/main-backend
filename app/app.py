@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Dict
 import httpx
-import logging
+
 
 app = FastAPI()
 @app.get("/")
@@ -70,20 +70,4 @@ async def memory_retrieve(payload: MemoryRetrievePayload):
     except httpx.HTTPError as e:
         raise HTTPException(status_code=502, detail=f"Error forwarding to memory agent retrieve: {str(e)}")
     
-    # Configure logging
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger("debug_logger")
-
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    logger.debug(f"Incoming request: {request.method} {request.url.path}")
-
-    try:
-        body_bytes = await request.body()
-        logger.debug(f"Request body: {body_bytes.decode('utf-8')}")
-    except Exception as e:
-        logger.debug(f"Failed to read body: {e}")
-
-    response = await call_next(request)
-    logger.debug(f"Response status: {response.status_code}")
-    return response
+  
