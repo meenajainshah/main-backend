@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, HTTPException
 from pydantic import BaseModel
 from typing import Optional, Dict
 import httpx
+import logging
 
 app = FastAPI()
 @app.get("/")
