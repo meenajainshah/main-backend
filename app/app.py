@@ -3,8 +3,19 @@ from pydantic import BaseModel
 from typing import Optional, Dict
 import httpx
 import logging
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+# Allow all origins — adjust for production to your domains only
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Change to ["https://yourdomain.com"] in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, OPTIONS, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -12,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 # Update these URLs before deploying
 MEMORY_AGENT_BASE_URL = "https://chromamemory.onrender.com"
-ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/12831161/u2j3pbl/"
+#ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/12831161/u2j3pbl/"
 
 # Models
 
