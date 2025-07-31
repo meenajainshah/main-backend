@@ -1,9 +1,17 @@
 services:
   - type: web
-    name: memory-api
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app:app --host=0.0.0.0 --port=10000
-    plan: free
+    name: main-backend
+    env: docker               # Change from python to docker
+    dockerfilePath: Dockerfile
+    branch: main              # Your deployment branch
+    plan: free                # Or your chosen plan
     region: oregon
-    runtime: python
+    autoDeploy: true
+    envVars:
+      - key: MEMORY_AGENT_BASE_URL
+        value: "https://chromamemory.onrender.com"
+      - key: ZAPIER_WEBHOOK_URL
+        value: "https://hooks.zapier.com/hooks/catch/12831161/2vjgzlr/"
+    healthCheckPath: "/"      # Endpoint to check health
+    ports:
+      - $PORT                # Port exposed by your container (match Dockerfile and uvicorn)
