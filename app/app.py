@@ -31,7 +31,7 @@ async def zapier_action(payload: ZapierPayload):
     # Flatten in case additional_info used earlier (optional)
     # Send flattened data directly to Zapier webhook
     async with httpx.AsyncClient() as client:
-        resp = await client.post("https://hooks.zapier.com/hooks/catch/your-hook-id", json=data)
+        resp = await client.post("https://hooks.zapier.com/hooks/catch/12831161/u2j3pbl/", json=data)
         resp.raise_for_status()
         return {"status": "Zapier webhook triggered", "response": resp.json()}
 
